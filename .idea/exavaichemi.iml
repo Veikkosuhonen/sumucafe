@@ -90,6 +90,7 @@
     <orderEntry type="library" scope="PROVIDED" name="sqlite3 (v1.6.6, rbenv: 3.2.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="stimulus-rails (v1.2.2, rbenv: 3.2.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="stringio (v3.0.8, rbenv: 3.2.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="sucker_punch (v3.1.0, rbenv: 3.2.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="thor (v1.2.2, rbenv: 3.2.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="timeout (v0.4.0, rbenv: 3.2.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="turbo-rails (v1.4.0, rbenv: 3.2.2) [gem]" level="application" />
@@ -127,6 +128,7 @@
         <option value="scaffold" />
         <option value="scaffold_controller" />
         <option value="stimulus" />
+        <option value="sucker_punch:job" />
         <option value="system_test" />
         <option value="task" />
         <option value="test_unit:channel" />
@@ -157,6 +159,7 @@
         <option value="scaffold" />
         <option value="scaffold_controller" />
         <option value="stimulus" />
+        <option value="sucker_punch:job" />
         <option value="system_test" />
         <option value="task" />
         <option value="test_unit:channel" />

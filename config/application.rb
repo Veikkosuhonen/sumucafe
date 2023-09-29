@@ -20,5 +20,15 @@ module Exavaichemi
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.active_job.queue_adapter = :sucker_punch
+
+    # Only do this if this is the server, not console for example
+    if defined?(Rails::Server)
+      config.after_initialize do
+        # We dont want the job in CI
+        unless Rails.env.test?
+          UpdateUnicafeMenuJob.perform_later
+        end
+      end
+    end
   end
 end
