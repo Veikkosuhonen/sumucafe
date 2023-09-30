@@ -12,8 +12,38 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
-    </main>
+
+    <svg width="100vw" height="100vw" xmlns="http://www.w3.org/2000/svg" class="z-[-10] rotate-[45deg] fixed">
+      <defs>
+        <pattern id="smallGrid" width="8" height="8" patternUnits="userSpaceOnUse">
+          <path d="M 8 0 L 0 0 0 8" fill="none" stroke="gray" stroke-width="0.5"/>
+        </pattern>
+        <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+          <rect width="80" height="80" fill="url(#smallGrid)"/>
+          <path d="M 80 0 L 0 0 0 80" fill="none" stroke="gray" stroke-width="1"/>
+        </pattern>
+      </defs>
+
+      <rect width="100%" height="100%" fill="url(#grid)" />
+    </svg>
+
+    <section class="py-2 px-6 mb-4 flex items-center border-b-2 border-slate-300 shadow-sm backdrop-blur-sm">
+      <span class="text-sm p-4">SUMUCAFE</span>
+      <span class="text-sm text-slate-500">- Vastaukset päivän polttaviin kysymyksiin klo 10.55-10.57</span>
+    </section>
+
+    <div class="flex">
+
+      <aside class="flex flex-col m-2 p-6 gap-4 border-r-2 border-slate-300 border-soli uppercase shadow-sm backdrop-blur-sm" >
+        <nav>What</nav>
+        <nav>Why</nav>
+        <nav>Who</nav>
+      </aside>
+
+      <main class="container mx-auto p-5 flex animate-appear shadow-sm backdrop-blur-sm">
+        <%= yield %>
+      </main>
+
+    </div>
   </body>
 </html>
