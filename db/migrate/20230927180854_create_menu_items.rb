@@ -3,7 +3,7 @@ class CreateMenuItems < ActiveRecord::Migration[7.0]
     create_table :menu_items do |t|
       t.integer :restaurant_id
       t.integer :meal_id
-      t.datetime :menu_date
+      t.date :menu_date
 
       t.timestamps
     end

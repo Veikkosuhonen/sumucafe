@@ -20,7 +20,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_27_180854) do
   create_table "menu_items", force: :cascade do |t|
     t.integer "restaurant_id"
     t.integer "meal_id"
-    t.datetime "menu_date"
+    t.date "menu_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
