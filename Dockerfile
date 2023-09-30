@@ -24,7 +24,8 @@ FROM base as build
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential pkg-config
+    apt-get install --no-install-recommends -y build-essential pkg-config libpq-dev postgresql-client && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install application gems
 COPY --link Gemfile Gemfile.lock ./
@@ -47,7 +48,7 @@ FROM base
 
 # Install packages needed for deployment
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libsqlite3-0 libpq-dev postgresql-client && \
+    apt-get install --no-install-recommends -y curl libsqlite3-0 && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Copy built artifacts: gems, application
