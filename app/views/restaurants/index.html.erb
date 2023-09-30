@@ -1,18 +1,25 @@
+
+<section>
 <p style="color: green"><%= notice %></p>
 
-<h1>Restaurants</h1>
+<h1 class="text-slate-700 mb-4">Restaurants</h1>
 
-<div id="restaurants">
-  <% @restaurants.each do |restaurant| %>
-    <%= render restaurant %>
-    <p><strong>Today's menu</strong> (<%= restaurant.menu_items.size %> entries)</p>
-    <% restaurant.menu_items.each do |menu_item| %>
-        <p><%= menu_item.meal.name %></p>
-    <% end %>
-    <p>
-      <%= link_to "Show this restaurant", restaurant %>
-    </p>
-  <% end %>
-</div>
+    <div id="restaurants" class="mb-8">
+      <% @restaurants.each do |restaurant| %>
+        <%= render restaurant %>
+        <p><strong>Today's menu</strong> (<%= restaurant.menu_items.size %> entries)</p>
+        <% restaurant.menu_items.each do |menu_item| %>
+            <p><%= menu_item.meal.name %></p>
+        <% end %>
 
-<%= link_to "New restaurant", new_restaurant_path %>
+      <% end %>
+    </div>
+
+    <h2 class="text-slate-700 mb-4">Closed today:</h2>
+
+    <div id="closed_restaurants">
+      <% @closed_restaurants.each do |restaurant| %>
+        <%= render restaurant %>
+      <% end %>
+    </div>
+</section>
