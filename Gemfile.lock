@@ -135,6 +135,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.15.4-x86_64-linux)
       racc (~> 1.4)
+    pg (1.5.4)
     psych (5.1.0)
       stringio
     public_suffix (5.0.3)
@@ -247,6 +248,7 @@ DEPENDENCIES
   dockerfile-rails (>= 1.5)
   importmap-rails
   jbuilder
+  pg
   puma (~> 5.0)
   rails (~> 7.0.8)
   redis (~> 5.0)
@@ -254,7 +256,7 @@ DEPENDENCIES
   sentry-rails (~> 5.11)
   sentry-ruby (~> 5.11)
   sprockets-rails
-  sqlite3 (~> 1.4)
+  sqlite3
   stimulus-rails
   sucker_punch
   tailwindcss-rails (~> 2.0)
