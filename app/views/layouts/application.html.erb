@@ -28,16 +28,22 @@
     </svg>
 
     <section class="py-2 px-6 mb-4 flex items-center border-b-2 border-slate-300 rounded-lg shadow-sm backdrop-blur-sm">
-      <h1 class="text-sm p-4">SUMUCAFE</h1>
+      <%= link_to "SUMUCAFE", root_path, class: "text-sm p-4 hover:bg-slate-100 transition-colors ease-in-out duration-300 rounded-lg" %>
       <span class="text-sm text-slate-500">- Vastaukset päivän polttaviin kysymyksiin klo 10.55-10.57</span>
+      <span class="ml-auto text-sm text-red-500">Huom: sumucafe on alfa-vaiheessa, syöttämäsi tiedot saatetaan poistaa</span>
     </section>
 
     <div class="flex">
 
-      <aside class="flex flex-col m-2 p-6 gap-4 border-r-2 border-slate-300 rounded-lg uppercase shadow-sm backdrop-blur-sm" >
-        <nav>What</nav>
-        <nav>Why</nav>
-        <nav>Who</nav>
+      <aside class="flex flex-col m-2 p-6 gap-4 border-r-2 border-slate-300 rounded-lg shadow-sm backdrop-blur-sm" >
+        <% if current_user %>
+          <span class="text-sm text-slate-500">Hei <%= current_user.username %></span>
+          <%= link_to 'Oma sivu', '/my-page', class: "" %>
+          <%= link_to 'Kirjaudu ulos', '/logout', class: "" %>
+        <% else %>
+          <%= link_to 'Login', '/login', class: "" %>
+          <%= link_to 'Sign up', 'signup', class: "" %>
+        <% end %>
       </aside>
 
       <main class="container mx-auto p-5 flex rounded-lg animate-appear shadow-sm backdrop-blur-sm">
