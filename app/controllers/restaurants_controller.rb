@@ -4,8 +4,6 @@ class RestaurantsController < ApplicationController
   # GET /restaurants or /restaurants.json
   def index
     @restaurants = Restaurant.with_todays_menu.all.sort_by(&:name)
-    puts @restaurants[0].menu_items
-    puts @restaurants[0].menu_items[0].meal.name
     @closed_restaurants = Restaurant.all.sort_by(&:name).reject { |r| @restaurants.include? r }
   end
 

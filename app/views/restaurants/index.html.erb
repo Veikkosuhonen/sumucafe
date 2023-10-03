@@ -4,22 +4,22 @@
 
 <h1 class="text-slate-700 mb-4">Restaurants</h1>
 
-    <div id="restaurants" class="mb-8">
+    <div id="restaurants" class="mb-8 flex flex-wrap gap-6">
       <% @restaurants.each do |restaurant| %>
-        <%= render restaurant %>
-        <p><strong>Today's menu</strong> (<%= restaurant.menu_items.size %> entries)</p>
-        <% restaurant.menu_items.each do |menu_item| %>
-            <p><%= menu_item.meal.name %></p>
-        <% end %>
+        <div class="p-4 border-b-4 border-r-2 border-slate-300 rounded-lg">
+          <h3 class="text-lg mb-2 text-slate-500"><%= restaurant.name %></h3>
+            <% restaurant.menu_items.each do |menu_item| %>
+                <p>• <%= menu_item.meal.name %></p>
+            <% end %>
+        </div>
 
       <% end %>
     </div>
 
-    <h2 class="text-slate-700 mb-4">Closed today:</h2>
-
+    <h2 class="text-slate-700 mb-4">No entries today:</h2>
     <div id="closed_restaurants">
       <% @closed_restaurants.each do |restaurant| %>
-        <%= render restaurant %>
+        <p><%= restaurant.name %></p>
       <% end %>
     </div>
 </section>
