@@ -38,12 +38,15 @@
       <aside class="flex flex-col m-2 p-6 gap-4 border-r-2 border-slate-300 rounded-lg shadow-sm backdrop-blur-sm" >
         <% if current_user %>
           <span class="text-sm text-slate-500">Hei <%= current_user.username %></span>
-          <%= link_to 'Oma sivu', '/my-page', class: "" %>
+          <%= link_to 'Oma sivu', current_user, class: "" %>
           <%= link_to 'Kirjaudu ulos', '/logout', class: "" %>
         <% else %>
           <%= link_to 'Login', '/login', class: "" %>
           <%= link_to 'Sign up', 'signup', class: "" %>
         <% end %>
+        <span class="text-sm text-red-500 mt-6 max-w-[10rem]">
+          Goodwill-based security. Älä syötä mitään arvokasta tietoa.
+        </span>
       </aside>
 
       <main class="container mx-auto p-5 flex rounded-lg animate-appear shadow-sm backdrop-blur-sm">
