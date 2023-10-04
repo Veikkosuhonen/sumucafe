@@ -12,10 +12,22 @@ class UpdateUnicafeMenuJob < ApplicationJob
       datafile.close
 
       data.each { |restaurant_data|
+        location_datas = restaurant_data["location"]
+        return unless location_datas.length > 0
+
+        location_name = location_datas[0]["name"]
+        puts location_name
+
+        location = Location.find_or_create_by({
+          :name => location_name
+                                              })
+
+
         name = restaurant_data["title"]
 
         restaurant = Restaurant.find_or_create_by({
                                                     :name => name,
+                                                    :location_id => location.id
                                                   })
 
         restaurant_data["menuData"]["menus"].each { |menu_data|

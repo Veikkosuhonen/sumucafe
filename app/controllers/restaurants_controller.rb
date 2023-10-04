@@ -3,7 +3,8 @@ class RestaurantsController < ApplicationController
 
   # GET /restaurants or /restaurants.json
   def index
-    @restaurants = Restaurant.with_todays_menu.all.sort_by(&:name)
+    @restaurants = Restaurant.with_todays_menu.all
+    @locations_with_restaurants = @restaurants.group_by { |r| r.location }.sort_by { |location, _| location.name }
     @closed_restaurants = Restaurant.all.sort_by(&:name).reject { |r| @restaurants.include? r }
   end
 

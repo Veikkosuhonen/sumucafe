@@ -2,19 +2,22 @@
 <section>
 <p style="color: green"><%= notice %></p>
 
-<h1 class="text-slate-700 mb-4">Restaurants</h1>
+  <% @locations_with_restaurants.each do |location, restaurants| %>
+    <div class="mb-32">
+      <h2 class="text-slate-500 text-4xl"><%= location.name %></h2>
+      <div class="mb-8 mt-2 flex flex-wrap gap-6">
+        <% restaurants.each do |restaurant| %>
+          <div class="p-4 border-b-4 border-r-2 border-slate-300 rounded-lg">
+            <h3 class="text-lg mb-2 text-slate-500"><%= restaurant.name %></h3>
+              <% restaurant.menu_items.each do |menu_item| %>
+                  <p class="pb-1">• <%= menu_item.meal.name %></p>
+              <% end %>
+          </div>
 
-    <div id="restaurants" class="mb-8 flex flex-wrap gap-6">
-      <% @restaurants.each do |restaurant| %>
-        <div class="p-4 border-b-4 border-r-2 border-slate-300 rounded-lg">
-          <h3 class="text-lg mb-2 text-slate-500"><%= restaurant.name %></h3>
-            <% restaurant.menu_items.each do |menu_item| %>
-                <p>• <%= menu_item.meal.name %></p>
-            <% end %>
-        </div>
-
-      <% end %>
+        <% end %>
+      </div>
     </div>
+  <% end %>
 
     <h2 class="text-slate-700 mb-4">No entries today:</h2>
     <div id="closed_restaurants">
