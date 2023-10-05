@@ -1,16 +1,11 @@
 require "json"
 
 class UpdateUnicafeMenuJob < ApplicationJob
-  queue_as :default
 
-  def perform
+  def perform(once = false)
     Time.use_zone("Helsinki") {
 
-      datafile = File.open "./test/fixtures/apiresponse.json"
-
-      data = JSON.load datafile
-
-      datafile.close
+      data = fetch_unicafe_data
 
       data.each { |restaurant_data|
         location_datas = restaurant_data["location"]
@@ -56,5 +51,11 @@ class UpdateUnicafeMenuJob < ApplicationJob
     }
 
     puts "Updated Unicafe menu"
+  end
+
+  def fetch_unicafe_data
+    url = "https://unicafe.fi/wp-json/swiss/v1/restaurants/?lang=fi"
+    response = HTTParty.get url
+    response.parsed_response
   end
 end

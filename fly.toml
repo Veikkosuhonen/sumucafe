@@ -9,6 +9,10 @@ console_command = "/rails/bin/rails console"
 
 [build]
 
+[processes]
+  app = "bin/rails server"
+  worker = "bundle exec sidekiq"
+
 [[mounts]]
   source = "data"
   destination = "/data"

@@ -42,8 +42,6 @@ gem "bootsnap", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
-gem "sucker_punch"
-
 group :development, :test do
   gem 'sqlite3'
 end
@@ -84,3 +82,9 @@ gem "sentry-ruby", "~> 5.11"
 gem "sentry-rails", "~> 5.11"
 
 gem "tailwindcss-rails", "~> 2.0"
+
+gem 'httparty'
+
+gem 'sidekiq'
+
+gem "sidekiq-cron"

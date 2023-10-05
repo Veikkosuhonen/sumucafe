@@ -19,14 +19,16 @@ module Exavaichemi
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
-    config.active_job.queue_adapter = :sucker_punch
+    Sidekiq::Options[:cron_poll_interval] = 60
 
     # Only do this if this is the server, not console for example
     if defined?(Rails::Server)
       config.after_initialize do
-        # We dont want the job in CI
-        unless Rails.env.test?
-          UpdateUnicafeMenuJob.perform_later
+        # Only run this cron in production
+        if Rails.env.production?
+          Sidekiq::Cron::Job.create(name: "Update unicafe stats",
+                                    cron: "30 4,9,10,15 * * * Europe/Helsinki", # 04:30, 09:30 etc
+                                    class: UpdateUnicafeMenuJob)
         end
       end
     end
