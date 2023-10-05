@@ -5,6 +5,7 @@ class UpdateUnicafeMenuJob < ApplicationJob
 
   def perform
     Time.use_zone("Helsinki") {
+
       datafile = File.open "./test/fixtures/apiresponse.json"
 
       data = JSON.load datafile
