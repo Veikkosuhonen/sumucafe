@@ -2,10 +2,13 @@ require "json"
 
 class UpdateUnicafeMenuJob < ApplicationJob
 
-  def perform(once = false)
+  def perform
     Time.use_zone("Helsinki") {
 
       data = fetch_unicafe_data
+
+      # Set all menu items to canceled
+      MenuItem.update_all(is_canceled: true)
 
       data.each { |restaurant_data|
         location_datas = restaurant_data["location"]
@@ -40,11 +43,24 @@ class UpdateUnicafeMenuJob < ApplicationJob
 
             date = Date.strptime(menu_date_string, "%d.%m.")
 
-            menu_item = MenuItem.find_or_create_by({
-              :meal_id => meal.id,
-              :restaurant_id => restaurant.id,
-              :menu_date => date,
-                                                   })
+            existing_menu_item = MenuItem.find_by({
+                                                    :restaurant_id => restaurant.id,
+                                                    :meal_id => meal.id,
+                                                    :menu_date => date,
+                                                  })
+            # If menu item already exists, un-cancel it
+            if existing_menu_item
+              existing_menu_item.update({
+                                          :is_canceled => false
+                                        })
+            else
+              MenuItem.create({
+                                :restaurant_id => restaurant.id,
+                                :meal_id => meal.id,
+                                :menu_date => date,
+                                :is_canceled => false
+                              })
+            end
           }
         }
       }

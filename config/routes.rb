@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   resource :session, only: [:new, :create, :destroy]
 
+  resource :update_jobs, only: [:new, :create]
+
   root "restaurants#index"
 
   get 'signup', to: 'users#new'

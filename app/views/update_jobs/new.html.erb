@@ -1,0 +1,13 @@
+<div class="mx-auto md:w-2/3 w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-red-50 mb-5 text-red-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <%= form_with url: update_jobs_path, class: "content", method: :post do |form| %>
+    <h1 class="font-bold text-4xl">Create unicafe update job</h1>
+
+    <div class="inline">
+      <%= form.submit "Create and run", class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    </div>
+  <% end %>
+</div>
