@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+flyctl postgres connect -a sumucafe-db -d sumucafe
