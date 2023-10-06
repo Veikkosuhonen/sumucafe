@@ -1,5 +1,6 @@
 class RatingsController < ApplicationController
   before_action :set_rating, only: %i[ show edit update destroy ]
+  before_action :must_be_admin, except: [:index, :show]
 
   # GET /ratings or /ratings.json
   def index

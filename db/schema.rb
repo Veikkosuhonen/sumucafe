@@ -10,11 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_06_074010) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_06_092910) do
   create_table "locations", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "priority", default: 0
   end
 
   create_table "meals", force: :cascade do |t|
@@ -52,6 +53,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_06_074010) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
+    t.boolean "is_admin", default: false
   end
 
 end

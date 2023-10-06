@@ -1,5 +1,6 @@
 class MenuItemsController < ApplicationController
   before_action :set_menu_item, only: %i[ show edit update destroy ]
+  before_action :must_be_admin, except: [:index, :show]
 
   # GET /menu_items or /menu_items.json
   def index

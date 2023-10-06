@@ -1,12 +1,13 @@
 class RestaurantsController < ApplicationController
   before_action :set_restaurant, only: %i[ show edit update destroy ]
+  before_action :must_be_admin, except: [:index, :show]
 
   # GET /restaurants or /restaurants.json
   def index
     @restaurants = Restaurant.with_todays_menu.all
     @locations_with_restaurants = @restaurants
                                     .group_by { |r| r.location }
-                                    .sort_by { |location, _| location.name }
+                                    .sort_by { |location, _| -location.priority }
                                     .map { |location, restaurant| [location, restaurant.sort_by { |r| r.name }]  }
 
     @closed_restaurants = Restaurant.all.sort_by(&:name).reject { |r| @restaurants.include? r }
