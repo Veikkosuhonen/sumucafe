@@ -5,5 +5,5 @@ class Restaurant < ApplicationRecord
   validates :name, uniqueness: true
 
   scope :with_todays_menu, -> {
-    includes(:location, menu_items: :meal).where(menu_items: { menu_date: Date.current...1.day.from_now }) }
+    includes(:location, menu_items: :meal).where(menu_items: { menu_date: Date.current...1.day.from_now, is_canceled: false }) }
 end
