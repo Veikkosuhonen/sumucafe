@@ -88,3 +88,5 @@ gem 'httparty'
 gem 'sidekiq'
 
 gem "sidekiq-cron"
+
+gem 'bcrypt'
