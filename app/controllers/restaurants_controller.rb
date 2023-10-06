@@ -7,7 +7,7 @@ class RestaurantsController < ApplicationController
     @restaurants = Restaurant.with_todays_menu.all
     @locations_with_restaurants = @restaurants
                                     .group_by { |r| r.location }
-                                    .sort_by { |location, _| -location.priority }
+                                    .sort_by { |location, _| -(location&.priority or 0) }
                                     .map { |location, restaurant| [location, restaurant.sort_by { |r| r.name }]  }
 
     @closed_restaurants = Restaurant.all.sort_by(&:name).reject { |r| @restaurants.include? r }
