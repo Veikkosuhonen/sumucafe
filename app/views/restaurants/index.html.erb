@@ -1,20 +1,25 @@
 
-<div>
-<p style="color: green"><%= notice %></p>
+<section>
+  <p style="color: green"><%= notice %></p>
 
   <% @locations_with_restaurants.each do |location, restaurants| %>
     <div class="mb-16 sm:mb-32">
       <h2 class="text-stone-600 text-4xl"><%= location.name %></h2>
-      <div class="flex flex-wrap gap-4 pt-4">
+      <div class="flex flex-wrap flex-col md:flex-row gap-4 pt-4 items-stretch">
         <% restaurants.each do |restaurant| %>
-          <div class="p-6 rounded-xl bg-stone-600 shadow-md">
-            <h3 class="text-lg mb-2 text-stone-300"><%= restaurant.name %></h3>
-            <div class="flex flex-col gap-2">
-              <% restaurant.menu_items.each do |menu_item| %>
-                <div class="p-2 px-4 rounded-lg bg-stone-500">
-                  <p class="text-stone-300"><%= menu_item.meal.name %></p>
+          <div class="rounded-xl shadow-md relative md:w-[20rem] lg:w-[25rem] xl:w-[30rem]">
+            <img src="img/<%= restaurant.name.downcase %>.webp" alt="<%= restaurant.name %>" class="w-full h-full absolute object-cover rounded-xl" />
+            <div class="h-full flex flex-col justify-end">
+              <div class="p-6 rounded-xl backdrop-blur-md backdrop-brightness-[0.3] w-full">
+                <h3 class="text-lg font-bold mb-2 text-stone-300"><%= restaurant.name %></h3>
+                <div class="flex flex-col gap-2">
+                  <% restaurant.menu_items.each do |menu_item| %>
+                    <div class="p-2 px-4 rounded-lg border-2 border-stone-500">
+                      <h4 class="text-stone-300"><%= menu_item.meal.name %></h4>
+                    </div>
+                  <% end %>
                 </div>
-              <% end %>
+              </div>
             </div>
           </div>
 
@@ -29,4 +34,4 @@
         <p><%= restaurant.name %></p>
       <% end %>
     </div>
-</div>
+</section>
