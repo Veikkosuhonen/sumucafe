@@ -1,17 +1,21 @@
 
-<section>
+<div>
 <p style="color: green"><%= notice %></p>
 
   <% @locations_with_restaurants.each do |location, restaurants| %>
-    <div class="mb-32">
-      <h2 class="text-slate-500 text-4xl"><%= location.name %></h2>
-      <div class="mb-8 mt-2 flex flex-wrap gap-6">
+    <div class="mb-16 sm:mb-32">
+      <h2 class="text-stone-600 text-4xl"><%= location.name %></h2>
+      <div class="flex flex-wrap gap-4 pt-4">
         <% restaurants.each do |restaurant| %>
-          <div class="p-4 border-b-4 border-r-2 border-slate-300 rounded-lg">
-            <h3 class="text-lg mb-2 text-slate-500"><%= restaurant.name %></h3>
+          <div class="p-6 rounded-xl bg-stone-600 shadow-md">
+            <h3 class="text-lg mb-2 text-stone-300"><%= restaurant.name %></h3>
+            <div class="flex flex-col gap-2">
               <% restaurant.menu_items.each do |menu_item| %>
-                  <p class="pb-1">• <%= menu_item.meal.name %></p>
+                <div class="p-2 px-4 rounded-lg bg-stone-500">
+                  <p class="text-stone-300"><%= menu_item.meal.name %></p>
+                </div>
               <% end %>
+            </div>
           </div>
 
         <% end %>
@@ -19,10 +23,10 @@
     </div>
   <% end %>
 
-    <h2 class="text-slate-700 mb-4">No entries today:</h2>
+    <h2 class="text-stone-500 mb-4">No entries today:</h2>
     <div id="closed_restaurants">
       <% @closed_restaurants.each do |restaurant| %>
         <p><%= restaurant.name %></p>
       <% end %>
     </div>
-</section>
+</div>

@@ -10,7 +10,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        sans: ['Lineto', 'Helvetica', 'sans-serif', ...defaultTheme.fontFamily.sans],
+        serif: ['Merriweather', 'serif', ...defaultTheme.fontFamily.serif],
       },
       keyframes: {
         appear: {
