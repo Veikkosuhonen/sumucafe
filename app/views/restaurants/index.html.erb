@@ -18,18 +18,20 @@
                       <h4 class="text-stone-300">
                         <%= menu_item.meal.name %>
                       </h4>
-                      <div class="flex gap-2 px-2 ml-auto rounded-lg bg-stone-700 border text-sm"
-                       style="border-color: <%= menu_item.meal.meal_type&.color_style or "gray" %>"
-                      >
-                        <span style="color: <%= menu_item.meal.meal_type&.color_style or "gray" %>">
-                          <%= menu_item.meal.meal_type.name %>
-                        </span>
-                        <!--span class="text-stone-400">
-                          <% unless menu_item.meal.meal_type&.price_for("student").nil? %>
-                            <%= menu_item.meal.meal_type.price_for("student") %>€
-                          <% end %>
-                        </span-->
-                      </div>
+                      <% unless menu_item.meal.meal_type.nil? %>
+                        <div class="flex gap-2 px-2 ml-auto rounded-lg bg-stone-700 border text-sm"
+                         style="border-color: <%= menu_item.meal.meal_type.color_style or "gray" %>"
+                        >
+                          <span style="color: <%= menu_item.meal.meal_type.color_style or "gray" %>">
+                            <%= menu_item.meal.meal_type.name %>
+                          </span>
+                          <!--span class="text-stone-400">
+                            <% unless menu_item.meal.meal_type&.price_for("student").nil? %>
+                              <%= menu_item.meal.meal_type.price_for("student") %>€
+                            <% end %>
+                          </span-->
+                        </div>
+                      <% end %>
                     </div>
                   <% end %>
                 </div>
