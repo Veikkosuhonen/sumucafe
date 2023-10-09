@@ -4,7 +4,9 @@ class RestaurantsController < ApplicationController
 
   # GET /restaurants or /restaurants.json
   def index
-    @restaurants = Restaurant.with_todays_menu.all
+    @date = request.query_parameters["date"]&.to_date || Date.today
+
+    @restaurants = Restaurant.with_days_menu(@date).all
     @locations_with_restaurants = @restaurants
                                     .group_by { |r| r.location }
                                     .sort_by { |location, _| -(location&.priority or 0) }

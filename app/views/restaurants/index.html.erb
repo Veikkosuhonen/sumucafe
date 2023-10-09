@@ -2,6 +2,18 @@
 <section>
   <p style="color: green"><%= notice %></p>
 
+  <div class="flex items-center gap-2 p-4 rounded-lg mb-8 sticky top-4 z-10 bg-stone-300/70 backdrop-blur-md">
+    <a class="p-2 hover:bg-stone-300 rounded-lg text-stone-800"
+      href="?date=<%= @date.prev_day %>">Previous day</a>
+    <span class="p-2 rounded-lg bg-stone-600 text-stone-300">
+      <%= @date.to_fs(:short) %>
+    </span>
+    <a class="p-2 hover:bg-stone-300 rounded-lg text-stone-800"
+        href="?date=<%= @date.next_day %>">Next day</a>
+    <a class="p-2 hover:bg-stone-300 rounded-lg text-stone-800"
+        href="?date=<%= Date.today %>">Today</a>
+  </div>
+
   <% @locations_with_restaurants.each do |location, restaurants| %>
     <div class="mb-16 sm:mb-32">
       <h2 class="text-stone-600 text-4xl"><%= location.name %></h2>
