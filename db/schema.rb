@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_06_105245) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_07_201555) do
   create_table "locations", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -18,10 +18,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_06_105245) do
     t.integer "priority", default: 0
   end
 
+  create_table "meal_types", force: :cascade do |t|
+    t.string "name"
+    t.string "color"
+    t.json "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "meals", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "meal_type_id"
   end
 
   create_table "menu_items", force: :cascade do |t|
