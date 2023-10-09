@@ -10,51 +10,49 @@ class UpdateUnicafeMenu
       return unless location_datas.length > 0
 
       location_name = location_datas[0]["name"]
-      puts location_name
+      location = Location.find_or_create_by(name: location_name)
 
-      location = Location.find_or_create_by({
-                                              :name => location_name
-                                            })
-
-
-      name = restaurant_data["title"]
-
-      restaurant = Restaurant.find_or_create_by({
-                                                  :name => name,
-                                                  :location_id => location.id
-                                                })
+      restaurant_name = restaurant_data["title"]
+      restaurant = Restaurant.find_or_create_by(name: restaurant_name, location: location)
 
       restaurant_data["menuData"]["menus"].each { |menu_data|
         menu_data["data"].each { |menu_item_data|
+          meal_type_name = menu_item_data["price"]["name"]
+          meal_type_price = menu_item_data["price"]["value"]
+          meal_type = MealType.find_by(name: meal_type_name)
+          if meal_type.nil?
+            meal_type = MealType.create(name: meal_type_name, price: meal_type_price)
+          else
+            meal_type.update(price: meal_type_price)
+          end
+
           meal_name = menu_item_data["name"]
-
-
-          meal = Meal.find_or_create_by({
-                                          :name => meal_name
-                                        })
+          meal = Meal.find_by(name: meal_name)
+          if meal.nil?
+            meal = Meal.create(name: meal_name, meal_type: meal_type)
+          else
+            meal.update(meal_type: meal_type)
+          end
 
           menu_date_string = menu_data["date"]
           menu_date_string = menu_date_string.slice(3, menu_date_string.length)
-
           date = Date.strptime(menu_date_string, "%d.%m.")
+          menu_item = MenuItem.find_by(
+            restaurant: restaurant,
+            meal: meal,
+            menu_date: date,
+          )
 
-          existing_menu_item = MenuItem.find_by({
-                                                  :restaurant_id => restaurant.id,
-                                                  :meal_id => meal.id,
-                                                  :menu_date => date,
-                                                })
           # If menu item already exists, un-cancel it
-          if existing_menu_item
-            existing_menu_item.update({
-                                        :is_canceled => false
-                                      })
+          if menu_item.nil?
+            MenuItem.create(
+              restaurant: restaurant,
+              meal: meal,
+              menu_date: date,
+              is_canceled: false
+            )
           else
-            MenuItem.create({
-                              :restaurant_id => restaurant.id,
-                              :meal_id => meal.id,
-                              :menu_date => date,
-                              :is_canceled => false
-                            })
+            menu_item.update(is_canceled: false)
           end
         }
       }
