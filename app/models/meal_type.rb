@@ -30,4 +30,19 @@ class MealType < ApplicationRecord
     end
     "gray"
   end
+
+  def order
+    if name == "Päivän lounas"
+      return 1
+    elsif name == "Vegaani"
+      return 2
+    elsif name == "Päivän erikoinen"
+      return 3
+    elsif name == "Makeasti"
+      return 4
+    elsif name == "Lisuke"
+      return 5
+    end
+    6
+  end
 end
