@@ -1,4 +1,4 @@
-# Sumucafe
+# Sumucafe [![CI/CD](https://github.com/Veikkosuhonen/sumucafe/actions/workflows/production.yml/badge.svg)](https://github.com/Veikkosuhonen/sumucafe/actions/workflows/production.yml)
 
 Yet another Better Unicafe Menu. This time with a focus on social features, more in-depth menu browsing, usability (no designer bs), and bot integration.
 
