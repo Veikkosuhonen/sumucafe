@@ -6,13 +6,13 @@ class RestaurantsController < ApplicationController
   def index
     @date = request.query_parameters["date"]&.to_date || Date.today
 
-    @restaurants = Restaurant.with_days_menu(@date).all
-    @locations_with_restaurants = @restaurants
-                                    .group_by { |r| r.location }
-                                    .sort_by { |location, _| -(location&.priority or 0) }
-                                    .map { |location, restaurant| [location, restaurant.sort_by { |r| r.name }]  }
+    @locations = Location.includes(:restaurants).all.sort_by { |location| -(location&.priority or 0) }
 
-    @closed_restaurants = Restaurant.all.sort_by(&:name).reject { |r| @restaurants.include? r }
+    @restaurants_by_day = {
+      @date => restaurants_on_date(@date),
+      @date + 1.day => restaurants_on_date(@date + 1.day),
+      @date + 2.days => restaurants_on_date(@date + 2.days)
+    }
   end
 
   # GET /restaurants/1 or /restaurants/1.json
@@ -75,5 +75,10 @@ class RestaurantsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def restaurant_params
       params.require(:restaurant).permit(:name)
+    end
+
+    def restaurants_on_date(date)
+      restaurants = Restaurant.with_days_menu(date).all
+      restaurants.group_by(&:location_id)
     end
 end
