@@ -19,6 +19,13 @@ class RestaurantsController < ApplicationController
           .group_by(&:location_id)
       ]
     }
+
+    if turbo_frame_request?
+      puts "turbo_frame_request"
+      render partial: "restaurants_list"
+    else
+      render :index
+    end
   end
 
   # GET /restaurants/1 or /restaurants/1.json
