@@ -8,10 +8,16 @@ class RestaurantsController < ApplicationController
 
     @locations = Location.includes(:restaurants).all.sort_by { |location| -(location&.priority or 0) }
 
-    @restaurants_by_day = {
-      @date => restaurants_on_date(@date),
-      @date + 1.day => restaurants_on_date(@date + 1.day),
-      @date + 2.days => restaurants_on_date(@date + 2.days)
+    restaurants = Restaurant.all.order(:name)
+
+    dates = [@date, @date + 1.day, @date + 2.days]
+
+    @restaurants_by_day = dates.to_h { |date|
+      [
+        date,
+        restaurants.sort_by { |restaurant| restaurant.open_on(date) ? 0 : 1 }
+          .group_by(&:location_id)
+      ]
     }
   end
 
@@ -75,10 +81,5 @@ class RestaurantsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def restaurant_params
       params.require(:restaurant).permit(:name)
-    end
-
-    def restaurants_on_date(date)
-      restaurants = Restaurant.with_days_menu(date).all
-      restaurants.group_by(&:location_id)
     end
 end
