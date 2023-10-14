@@ -1,24 +1,25 @@
 <%= turbo_frame_tag "restaurants_list" do %>
-  <div class="flex items-center gap-2 p-4 rounded-lg mb-8 sticky top-4 z-10 bg-stone-300/70 backdrop-blur-md">
-    <%= link_to "Previous day", "?date=#{@date.prev_day}", class: "p-2 bg-stone-300 hover:bg-stone-400 rounded-lg text-stone-800"%>
+  <section class="flex items-center gap-2 py-4 mb-2">
+    <% @locations.each do |location| %>
+      <%= link_to location.name, "?date=#{@date}&location_id=#{location.id}",
+                  class: "p-2 bg-stone-300 hover:bg-stone-400 rounded-lg text-stone-800 outline outline-2 outline-stone-300",
+                  style: "#{location == @current_location ? "outline-color: blue" : ""}"
+      %>
+    <% end %>
+  </section>
+
+  <section class="flex items-center gap-2 py-4 rounded-lg mb-8">
+    <%= link_to "Previous day", "?date=#{@date.prev_day}&location_id=#{@current_location.id}", class: "p-2 bg-stone-300 hover:bg-stone-400 rounded-lg text-stone-800"%>
     <span class="p-2 rounded-lg text-stone-800 w-[7rem]">
       <%= @date.strftime("%a, %b %d") %>
     </span>
-    <%= link_to "Next day", "?date=#{@date.next_day}", class: "p-2 bg-stone-300 hover:bg-stone-400 rounded-lg text-stone-800"%>
-    <%= link_to "Today", "?date=#{Date.today}", class: "p-2 bg-stone-300 hover:bg-stone-400 rounded-lg text-stone-800"%>
+    <%= link_to "Next day", "?date=#{@date.next_day}&location_id=#{@current_location.id}", class: "p-2 bg-stone-300 hover:bg-stone-400 rounded-lg text-stone-800"%>
+    <%= link_to "Today", "?date=#{Date.today}&location_id=#{@current_location.id}", class: "p-2 bg-stone-300 hover:bg-stone-400 rounded-lg text-stone-800"%>
+  </section>
 
-  </div>
-
-  <% @locations.each do |location| %>
-    <div class="mb-16 sm:mb-32">
-      <h2 class="text-stone-800 text-xl mb-2"><%= location.name %></h2>
-      <div class="flex gap-4 p-2 rounded-lg bg-stone-300">
-        <% @restaurants_by_day.each do |day, restaurants_by_location_id| %>
-          <section class="p-4 md:w-[35rem] lg:w-[45rem]">
-            <%= render restaurants_by_location_id[location.id], day: day %>
-          </section>
-        <% end %>
-      </div>
-    </div>
+  <% @restaurants_by_day.each do |day, restaurants| %>
+    <section class="py-4 md:w-[35rem] lg:w-[45rem]">
+      <%= render restaurants, day: day %>
+    </section>
   <% end %>
 <% end %>

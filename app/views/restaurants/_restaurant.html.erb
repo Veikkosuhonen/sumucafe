@@ -6,7 +6,7 @@
         <% unless restaurant.open_on(day) %><p class="text-stone-400 ml-auto">Kiinni</p><% end %>
       </div>
       <div class="flex flex-col gap-2">
-        <%= render restaurant.menu_items_on(day).sort_by { |mi| mi.meal.meal_type&.order or 10 } %>
+        <%= render restaurant.menu_items_on(day) %>
       </div>
     </div>
   </div>

@@ -6,22 +6,25 @@ class RestaurantsController < ApplicationController
   def index
     @date = request.query_parameters["date"]&.to_date || Date.today
 
-    @locations = Location.includes(:restaurants).all.sort_by { |location| -(location&.priority or 0) }
+    location_id = request.query_parameters["location_id"]
 
-    restaurants = Restaurant.all.order(:name)
+    @locations = Location.all
+
+    @current_location = location_id.blank? ? @locations.find { |location| location.name == "Kumpula" }
+      : @locations.find { |location| location.id == location_id.to_i }
+
+    restaurants = Restaurant.where(location: @current_location)
 
     dates = [@date]
 
     @restaurants_by_day = dates.to_h { |date|
       [
         date,
-        restaurants.sort_by { |restaurant| restaurant.open_on(date) ? 0 : 1 }
-          .group_by(&:location_id)
+        restaurants.sort_by { |restaurant| restaurant.open_on(date) ? restaurant.name : "z-#{restaurant.name}" }
       ]
     }
 
     if turbo_frame_request?
-      puts "turbo_frame_request"
       render partial: "restaurants_list"
     else
       render :index
