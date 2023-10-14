@@ -14,54 +14,53 @@
         href="?date=<%= Date.today %>">Today</a>
   </div>
 
-  <div class="animate-appear">
+  <div>
     <% @locations.each do |location| %>
       <div class="mb-16 sm:mb-32">
-        <h2 class="text-stone-600 text-xl"><%= location.name %></h2>
-        <div class="flex gap-4">
+        <h2 class="text-stone-800 text-xl mb-2"><%= location.name %></h2>
+        <div class="flex gap-4 p-2 rounded-lg bg-stone-300">
           <% @restaurants_by_day.each do |day, restaurants_by_location_id| %>
-            <div class="p-4 rounded-lg outline-stone-400 outline-4" style="outline-style: <% if day.today? %>solid<% else %>none<% end %>">
-              <h3><%= day.strftime("%a, %b %d") %></h3>
+            <section class="p-4">
+              <h3 class="mb-2"><%= day.strftime("%a, %b %d") %></h3>
               <% unless restaurants_by_location_id[location.id].nil? %>
-              <% restaurants_by_location_id[location.id].each do |restaurant| %>
-                <div class="rounded-xl shadow-md relative md:w-[20rem] lg:w-[25rem] xl:w-[30rem] mb-2">
-                  <img src="img/<%= restaurant.name.downcase %>.webp" alt="<%= restaurant.name %>" class="w-full h-full absolute object-cover rounded-xl" />
-                  <div class="h-full flex flex-col justify-end">
-                    <div class="p-6 rounded-xl backdrop-blur-md backdrop-brightness-[0.3] w-full">
-                      <div class="flex gap-2 items-center mb-2">
-                        <h3 class="text-lg font-bold text-stone-300"><%= restaurant.name %></h3>
-                        <% unless restaurant.open_on(day) %><p class="text-stone-400">Kiinni</p><% end %>
-                      </div>
-                      <div class="flex flex-col gap-2">
-                        <% restaurant.menu_items_on(day).sort_by { |mi| mi.meal.meal_type&.order or 10 }
-                             .each do |menu_item| %>
-                          <div class="flex items-start gap-2 p-2 px-4 rounded-lg border-2 border-stone-500">
-                            <h4 class="text-stone-300">
-                              <%= menu_item.meal.name %>
-                            </h4>
-                            <% unless menu_item.meal.meal_type.nil? %>
-                              <div class="flex gap-2 px-2 ml-auto rounded-lg bg-stone-700 border text-sm"
-                               style="border-color: <%= menu_item.meal.meal_type.color_style or "gray" %>"
-                              >
-                                <span style="color: <%= menu_item.meal.meal_type.color_style or "gray" %>">
-                                  <%= menu_item.meal.meal_type.name %>
-                                </span>
-                                <!--span class="text-stone-400">
-                                  <% unless menu_item.meal.meal_type&.price_for("student").nil? %>
-                                    <%= menu_item.meal.meal_type.price_for("student") %>€
-                                  <% end %>
-                                </span-->
-                              </div>
-                            <% end %>
-                          </div>
-                        <% end %>
+                <% restaurants_by_location_id[location.id].each do |restaurant| %>
+                  <div class="rounded-xl shadow-md bg-stone-800 relative md:w-[20rem] lg:w-[25rem] xl:w-[30rem] mb-2">
+                    <div class="h-full flex flex-col justify-end">
+                      <div class="p-6 rounded-xl w-full">
+                        <div class="flex gap-2 items-center mb-2">
+                          <h3 class="text-lg font-bold text-stone-300"><%= restaurant.name %></h3>
+                          <% unless restaurant.open_on(day) %><p class="text-stone-400 ml-auto">Kiinni</p><% end %>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                          <% restaurant.menu_items_on(day).sort_by { |mi| mi.meal.meal_type&.order or 10 }
+                               .each do |menu_item| %>
+                            <div class="flex items-start gap-2 p-2 px-4 rounded-lg border-2 border-stone-500">
+                              <h4 class="text-stone-300">
+                                <%= menu_item.meal.name %>
+                              </h4>
+                              <% unless menu_item.meal.meal_type.nil? %>
+                                <div class="flex gap-2 px-2 ml-auto rounded-lg bg-stone-700 border text-sm"
+                                 style="border-color: <%= menu_item.meal.meal_type.color_style or "gray" %>"
+                                >
+                                  <span style="color: <%= menu_item.meal.meal_type.color_style or "gray" %>">
+                                    <%= menu_item.meal.meal_type.name %>
+                                  </span>
+                                  <!--span class="text-stone-400">
+                                    <% unless menu_item.meal.meal_type&.price_for("student").nil? %>
+                                      <%= menu_item.meal.meal_type.price_for("student") %>€
+                                    <% end %>
+                                  </span-->
+                                </div>
+                              <% end %>
+                            </div>
+                          <% end %>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              <% end %>
-              <% end %>
-            </div>
+                <% end %>
+              </section>
+            <% end %>
           <% end %>
         </div>
       </div>

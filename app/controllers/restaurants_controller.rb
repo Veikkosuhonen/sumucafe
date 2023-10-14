@@ -10,7 +10,7 @@ class RestaurantsController < ApplicationController
 
     restaurants = Restaurant.all.order(:name)
 
-    dates = [@date, @date + 1.day, @date + 2.days]
+    dates = [@date]
 
     @restaurants_by_day = dates.to_h { |date|
       [
