@@ -1,8 +1,7 @@
-<section data-controller="modal">
+<section data-controller="modal" id="<%=dom_id(menu_item)%>">
   <button type=button
           data-action="click->modal#open"
-          id="<%=dom_id(menu_item)%>"
-          class="flex items-start gap-2 p-2 px-4 rounded-lg border-2 border-stone-600">
+          class="flex items-start gap-2 p-2 px-4 w-full rounded-lg border-2 border-stone-600">
     <h4 class="text-stone-300">
       <%= menu_item.meal.name %>
     </h4>
