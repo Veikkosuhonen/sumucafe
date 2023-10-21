@@ -1,12 +1,35 @@
-<div id="<%= dom_id menu_item %>" class="flex items-start gap-2 p-2 px-4 rounded-lg border-2 border-stone-600">
-  <h4 class="text-stone-300">
-    <%= menu_item.meal.name %>
-  </h4>
-  <% unless menu_item.meal.meal_type.nil? %>
-    <div class="flex gap-2 px-2 ml-auto rounded-lg bg-stone-700 border text-sm" style="border-color: <%= menu_item.meal.meal_type.color_style or "gray" %>">
-      <span style="color: <%= menu_item.meal.meal_type.color_style or "gray" %>">
-        <%= menu_item.meal.meal_type.name %>
-      </span>
+<section data-controller="modal">
+  <button type=button
+          data-action="click->modal#open"
+          id="<%=dom_id(menu_item)%>"
+          class="flex items-start gap-2 p-2 px-4 rounded-lg border-2 border-stone-600">
+    <h4 class="text-stone-300">
+      <%= menu_item.meal.name %>
+    </h4>
+    <% unless menu_item.meal.meal_type.nil? %>
+      <div class="flex gap-2 px-2 ml-auto rounded-lg bg-stone-700 border text-sm" style="border-color: <%= menu_item.meal.meal_type.color_style or "gray" %>">
+        <span style="color: <%= menu_item.meal.meal_type.color_style or "gray" %>">
+          <%= menu_item.meal.meal_type.name %>
+        </span>
+      </div>
+    <% end %>
+  </button>
+
+  <dialog data-modal-target="modal"
+          data-action="click->modal#close"
+          class="fixed top-0 w-[100vw] h-[100vh] bg-transparent backdrop-brightness-50 backdrop-blur-md z-10">
+    <div class="container mx-auto p-6 m-4 rounded-lg bg-stone-900/50"
+      data-controller="clickCapture"
+      data-action="click->clickCapture#stopPropagation"
+    >
+      <header class="flex gap-4 mb-4 items-end">
+        <h1 class="text-xl text-stone-200"><%= menu_item.meal.name %></h1>
+        <h2 class="text-stone-300"><%= menu_item.menu_date %></h2>
+        <button type="button" class="hidden md:visible ml-auto text-stone-200" data-action="click->modal#close">Close</button>
+      </header>
+      <%= turbo_frame_tag "menu_item_details", src: menu_item, loading: "lazy" do %>
+        <p class="text-stone-200">Loading details...</p>
+      <% end %>
     </div>
-  <% end %>
-</div>
+  </dialog>
+</section>

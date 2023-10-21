@@ -1,0 +1,6 @@
+<%= turbo_frame_tag "menu_item_details" do %>
+  <article>
+    <%= render partial: "meals/details", locals: { meal: menu_item.meal } %>
+  </article>
+  <button type="button" class="md:hidden mt-auto w-full py-2 border-2 border-teal-700 text-teal-600 rounded-lg" data-action="click->modal#close">Close</button>
+<% end %>
