@@ -1,3 +1,5 @@
-<article>
-  <h1 class="text-stone-200"><%= meal.name %></h1>
-</article>
+<%= turbo_frame_tag "meal_details" do %>
+  <section>
+    <h1 class="text-stone-200 text-xl"><%= @meal.name %></h1>
+  </section>
+<% end %>

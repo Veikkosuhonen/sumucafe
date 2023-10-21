@@ -9,6 +9,11 @@ class MealsController < ApplicationController
 
   # GET /meals/1 or /meals/1.json
   def show
+    if turbo_frame_request?
+      render partial: "meals/details", layout: false
+    else
+      render :show
+    end
   end
 
   # GET /meals/new

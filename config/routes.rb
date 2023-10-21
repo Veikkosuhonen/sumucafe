@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   resources :ratings
   resources :users
   resources :menu_items
-  resources :meals
+  resources :meals do
+    resources :ratings
+    get :user_rating, on: :member, controller: :ratings
+  end
   resources :restaurants
 
   resource :session, only: [:new, :create, :destroy]

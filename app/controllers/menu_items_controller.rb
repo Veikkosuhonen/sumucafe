@@ -9,11 +9,6 @@ class MenuItemsController < ApplicationController
 
   # GET /menu_items/1 or /menu_items/1.json
   def show
-    if turbo_frame_request?
-      render partial: "menu_items/details", locals: { menu_item: @menu_item }, layout: false
-    else
-      render :show
-    end
   end
 
   # GET /menu_items/new

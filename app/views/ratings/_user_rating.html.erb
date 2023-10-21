@@ -1,0 +1,15 @@
+<%= turbo_frame_tag "user_rating" do %>
+  <section class="py-2">
+    <% if @average_score %>
+      <p class="text-stone-400 mb-4">Average rating is <span class="text-teal-300 font-bold"><%= @average_score %></span></p>
+    <% else %>
+      <p class="text-stone-400 mb-4">No ratings yet</p>
+    <% end %>
+    <h2 class="text-stone-300 mb-2">Rate this meal</h2>
+    <% if current_user %>
+      <%= render partial: "ratings/form", locals: { rating: @rating }%>
+    <% else %>
+      <%= link_to "Log in to rate this meal", login_path, class: "text-teal-500 p-1 rounded-lg border-2 border-teal-600" %>
+    <% end %>
+  </section>
+<% end %>
