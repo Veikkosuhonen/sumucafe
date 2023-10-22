@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   resources :meal_types
   resources :locations
   resources :ratings
-  resources :users
+  resources :users do
+    get :password_reset, on: :member
+  end
   resources :menu_items
   resources :meals do
     resources :ratings
@@ -11,6 +13,8 @@ Rails.application.routes.draw do
   resources :restaurants
 
   resource :session, only: [:new, :create, :destroy]
+
+  resources :password_resets, only: [:new, :create, :edit, :update]
 
   resource :update_jobs, only: [:new, :create]
 

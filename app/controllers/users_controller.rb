@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :set_user, only: %i[ show edit update destroy password_reset ]
   before_action :must_sign_in, only: [:show, :edit, :destroy]
-  before_action :must_be_admin, only: :index
+  before_action :must_be_admin, only: [:index, :password_reset]
 
   # GET /users or /users.json
   def index
@@ -57,6 +57,9 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url, notice: "User was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def password_reset
   end
 
   private
