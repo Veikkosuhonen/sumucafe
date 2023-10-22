@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_07_201555) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_22_123345) do
   create_table "locations", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -64,6 +64,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_07_201555) do
     t.datetime "updated_at", null: false
     t.string "password_digest"
     t.boolean "is_admin", default: false
+    t.string "auth_token"
   end
 
 end

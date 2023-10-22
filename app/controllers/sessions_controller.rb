@@ -7,7 +7,16 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by email: params[:email]
     if user && user.authenticate(params[:password])
-      session[:user_id] = user.id
+      auth_token = user.auth_token
+
+      if auth_token.nil?
+        user.generate_token(:auth_token)
+        user.save
+        auth_token = user.auth_token
+      end
+
+      cookies.permanent[:auth_token] = auth_token
+
       redirect_to root_path, notice: "Welcome back!"
     else
       redirect_to login_path, notice: "Username and/or password mismatch"
@@ -15,7 +24,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session[:user_id] = nil
+    cookies.delete :auth_token
     redirect_to :root
   end
 end
