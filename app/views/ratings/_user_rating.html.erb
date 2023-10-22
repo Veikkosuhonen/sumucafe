@@ -8,12 +8,10 @@
     <div class="flex flex-col items-center w-full mb-2">
       <h2 class="text-stone-300 mb-2">Rate this meal</h2>
       <% if current_user %>
-        <div class="flex gap-4">
-          <%= render partial: "ratings/form", locals: { rating: @rating }%>
-          <% unless @rating.new_record? %>
-            <%= button_to "Reset", rating_path(@rating), method: :delete, class: "text-stone-500 text-sm hover:text-red-600 ml-auto" %>
-          <% end %>
-        </div>
+        <%= render partial: "ratings/form", locals: { rating: @rating }%>
+        <% unless @rating.new_record? %>
+          <%= button_to "Reset", rating_path(@rating), method: :delete, class: "text-stone-500 text-sm hover:text-red-600" %>
+        <% end %>
       <% else %>
         <%= link_to "Log in to rate this meal", login_path, class: "text-teal-500 p-1 rounded-lg border-2 border-teal-600" %>
       <% end %>

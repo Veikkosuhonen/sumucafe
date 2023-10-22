@@ -3,7 +3,7 @@
   <%= form.hidden_field :user_id %>
   <%= form.hidden_field :score, data: { "ratingForm-target": "scoreField", } %>
 
-  <div class="flex gap-2 mx-2">
+  <div class="flex gap-2 mx-2 mb-2">
     <% (1..5).each do |score| %>
       <%= form.submit score,
                       class: "rounded-lg py-3 px-5 #{(rating.score and score <= rating.score) ? "bg-blue-600" : ""} hover:bg-blue-600/50 border border-blue-600 text-white font-medium cursor-pointer",
