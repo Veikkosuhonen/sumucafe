@@ -48,11 +48,9 @@ class RatingsController < ApplicationController
   # DELETE /ratings/1 or /ratings/1.json
   def destroy
     @rating.destroy
-
-    respond_to do |format|
-      format.html { redirect_to ratings_url, notice: "Rating was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    @rating = Rating.new(meal_id: @rating.meal_id, user_id: current_user&.id)
+    @average_score = Rating.where(meal_id: @rating.meal_id).average(:score)
+    render partial: "ratings/user_rating", layout: false
   end
 
   private
