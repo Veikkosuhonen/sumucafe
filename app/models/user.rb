@@ -8,12 +8,14 @@ class User < ApplicationRecord
 
   validates :password, confirmation: true, length: { minimum: 4, maximum: 50 }, on: :create
 
-  before_create { generate_token(:auth_token) }
+  before_create do
+    generate_token(:auth_token)
+  end
 
   def generate_password_reset
     generate_token(:password_reset_token)
     self.password_reset_sent_at = Time.zone.now
-    save!
+    save
   end
 
   def send_password_reset
