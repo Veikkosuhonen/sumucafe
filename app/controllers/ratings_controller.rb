@@ -1,7 +1,6 @@
 class RatingsController < ApplicationController
   before_action :set_rating, only: %i[ show edit update destroy ]
-  before_action :must_sign_in, except: [:index, :show, :user_rating]
-  before_action :must_be_admin, except: [:index, :show, :user_rating]
+  before_action :must_sign_in, except: [:index, :user_rating]
 
   # GET /ratings or /ratings.json
   def index
@@ -32,24 +31,28 @@ class RatingsController < ApplicationController
     @rating = Rating.new(rating_params)
 
     if @rating.save
-      @average_score = Rating.where(meal_id: @rating.meal_id).average(:score)
+      set_average_score
       render partial: "ratings/user_rating", layout: false
     end
   end
 
   # PATCH/PUT /ratings/1 or /ratings/1.json
   def update
+    can_edit
+
     if @rating.update(rating_params)
-      @average_score = Rating.where(meal_id: @rating.meal_id).average(:score)
+      set_average_score
       render partial: "ratings/user_rating", layout: false
     end
   end
 
   # DELETE /ratings/1 or /ratings/1.json
   def destroy
+    can_edit
+
     @rating.destroy
     @rating = Rating.new(meal_id: @rating.meal_id, user_id: current_user&.id)
-    @average_score = Rating.where(meal_id: @rating.meal_id).average(:score)
+    set_average_score
     render partial: "ratings/user_rating", layout: false
   end
 
@@ -61,6 +64,16 @@ class RatingsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def rating_params
-      params.require(:rating).permit(:meal_id, :user_id, :score)
+      params.require(:rating).permit(:meal_id, :score).merge(user_id: current_user&.id)
+    end
+
+    def can_edit
+      unless @rating.user == current_user
+        redirect_to root_path, notice: "You can only edit your own ratings."
+      end
+    end
+
+    def set_average_score
+      @average_score = Rating.where(meal_id: @rating.meal_id).average(:score)
     end
 end
