@@ -1,7 +1,7 @@
 <section data-controller="modal" id="<%=dom_id(menu_item)%>">
   <button type=button
           data-action="click->modal#open"
-          class="flex items-start gap-2 p-2 px-4 w-full rounded-lg border-2 border-stone-700 hover:border-stone-600
+          class="flex items-start gap-2 p-2 pl-4 w-full rounded-lg border-2 border-stone-700 hover:border-stone-600
           text-stone-300 hover:text-stone-100 transition-colors duration-100">
     <h4>
       <%= menu_item.meal.name %>
@@ -12,6 +12,7 @@
           <%= menu_item.meal.meal_type.name %>
         </span>
       </div>
+      <%= render "partials/score_small", score: menu_item.meal.score %>
     <% end %>
   </button>
 
