@@ -23,11 +23,11 @@
          data-controller="clickCapture"
          data-action="click->clickCapture#stopPropagation"
     >
-      <header class="flex gap-4 mb-4 items-end border-b-2 border-stone-600 py-2 px-4">
+      <header class="flex gap-4 mb-4 items-end border-b-2 border-stone-700 py-2 px-4">
         <p class="text-stone-400"><%= menu_item.meal.name %> in <%= menu_item.restaurant.name %> on <%= menu_item.menu_date %></p>
         <button type="button" class="hidden md:block ml-auto text-stone-200" data-action="click->modal#close">Close</button>
       </header>
-      <article class="p-4">
+      <article>
         <%= turbo_frame_tag "meal_details", src: menu_item.meal, loading: "lazy" do %>
           <p class="text-stone-400 text-sm py-6 animate-bounce">Loading details...</p>
         <% end %>

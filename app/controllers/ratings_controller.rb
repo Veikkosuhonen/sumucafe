@@ -8,7 +8,8 @@ class RatingsController < ApplicationController
   end
 
   def user_rating
-    @average_score = Rating.where(meal_id: params[:id]).average(:score)
+    @all_ratings = Rating.all.includes(:user).where(meal_id: params[:id])
+    @average_score = @all_ratings.sum(&:score) / @all_ratings.count.to_f if @all_ratings.count > 0
     @rating = Rating.where(user_id: current_user&.id, meal_id: params[:id]).first_or_initialize
     render partial: "ratings/user_rating", layout: false
   end
@@ -31,7 +32,8 @@ class RatingsController < ApplicationController
     @rating = Rating.new(rating_params)
 
     if @rating.save
-      set_average_score
+      @all_ratings = Rating.all.includes(:user).where(meal_id: @rating.meal_id).to_a.push(@rating).uniq(&:id).sort_by(&:updated_at)
+      @average_score = @all_ratings.sum(&:score) / @all_ratings.count.to_f
       render partial: "ratings/user_rating", layout: false
     end
   end
@@ -41,7 +43,8 @@ class RatingsController < ApplicationController
     can_edit
 
     if @rating.update(rating_params)
-      set_average_score
+      @all_ratings = Rating.all.includes(:user).where(meal_id: @rating.meal_id).to_a.push(@rating).uniq(&:id).sort_by(&:updated_at)
+      @average_score = @all_ratings.sum(&:score) / @all_ratings.count.to_f
       render partial: "ratings/user_rating", layout: false
     end
   end
@@ -52,7 +55,8 @@ class RatingsController < ApplicationController
 
     @rating.destroy
     @rating = Rating.new(meal_id: @rating.meal_id, user_id: current_user&.id)
-    set_average_score
+    @all_ratings = Rating.includes(:user).where(meal_id: @rating.meal_id).to_a.uniq(&:id).sort_by(&:updated_at)
+    @average_score = @all_ratings.sum(&:score) / @all_ratings.count.to_f if @all_ratings.count > 0
     render partial: "ratings/user_rating", layout: false
   end
 

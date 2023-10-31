@@ -1,11 +1,6 @@
 <%= turbo_frame_tag "user_rating" do %>
-  <section class="py-2">
-    <% if @average_score %>
-      <p class="text-stone-400 mb-6">Average rating is <span class="text-teal-300 font-bold"><%= @average_score %></span></p>
-    <% else %>
-      <p class="text-stone-400 mb-6">No ratings yet</p>
-    <% end %>
-    <div class="flex flex-col items-center w-full mb-2">
+  <section>
+    <div class="flex flex-col items-center w-full">
       <h2 class="text-stone-300 mb-2">Rate this meal</h2>
       <% if current_user %>
         <%= render partial: "ratings/form", locals: { rating: @rating }%>
@@ -16,5 +11,27 @@
         <%= link_to "Log in to rate this meal", login_path, class: "text-teal-500 p-1 rounded-lg border-2 border-teal-600" %>
       <% end %>
     </div>
+    <div class="border-stone-700 border-t-2 mt-8 w-full" ></div>
+    <% if @average_score %>
+      <div class="flex flex-col gap-y-4 md:flex-row items-stretch w-full">
+        <p class="text-stone-300 text-lg mb-4 py-4 px-8">Average rating is <%= render "partials/score", score: @average_score %></p>
+        <div class="border-stone-700 border-l-2 w-[1rem]" ></div>
+        <div class="py-4 px-8 flex-grow">
+          <h3 class="text-stone-300 mb-4 text-lg">All ratings</h3>
+          <ul>
+            <% @all_ratings.each do |rating| %>
+              <li class="mb-2">
+                <p class="text-stone-400 text-xs"><%= rating.updated_at.strftime("%a, %b %d") %></p>
+                <p class="text-stone-300"><%= render "partials/score", score: rating.score %> - <%= rating.user.username %></p>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    <% else %>
+      <p class="text-stone-400 py-4 px-8 ">No ratings yet</p>
+    <% end %>
+
+
   </section>
 <% end %>
