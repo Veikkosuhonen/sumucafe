@@ -22,7 +22,7 @@ class Restaurant < ApplicationRecord
 
   def menu_items_on(date)
     @menu_items_by_day ||= {} # Make sure instance var is initialized
-    @menu_items_by_day[date] ||= menu_items.on_date(date) # Memoize
+    @menu_items_by_day[date] ||= menu_items.on_date(date).sort_by { |mi| mi.meal.meal_type.order } # Memoize
   end
 
   def menu_score_on(date)
