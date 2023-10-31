@@ -25,6 +25,10 @@ class Restaurant < ApplicationRecord
     @menu_items_by_day[date] ||= menu_items.on_date(date) # Memoize
   end
 
+  def menu_score_on(date)
+    menu_items.all.where(menu_date: date).includes(meal: :ratings).average("ratings.score").to_f.round(2)
+  end
+
   def open_on(date)
     menu_items_on(date).any?
   end

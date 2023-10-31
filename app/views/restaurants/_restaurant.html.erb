@@ -2,8 +2,12 @@
   <div class="h-full flex flex-col justify-end">
     <div class="p-6 rounded-xl w-full">
       <div class="flex gap-2 items-center mb-4">
-        <h3 class="font-bold text-stone-300"><%= restaurant.name %></h3>
-        <% unless restaurant.open_on(day) %><p class="text-stone-400 ml-auto">Kiinni</p><% end %>
+        <h3 class="font-bold text-stone-300 mr-auto"><%= restaurant.name %></h3>
+        <% if restaurant.open_on(day) %>
+          <%= render "partials/score", score: restaurant.menu_score_on(day) %>
+        <% else %>
+          <p class="text-stone-400">Kiinni</p>
+        <% end %>
       </div>
       <div class="flex flex-col gap-2">
         <%= render restaurant.menu_items_on(day) %>

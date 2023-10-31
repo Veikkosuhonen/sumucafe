@@ -13,16 +13,9 @@ class RestaurantsController < ApplicationController
     @current_location = location_id.blank? ? @locations.find { |location| location.name == "Kumpula" }
       : @locations.find { |location| location.id == location_id.to_i }
 
-    restaurants = Restaurant.where(location: @current_location)
-
-    dates = [@date]
-
-    @restaurants_by_day = dates.to_h { |date|
-      [
-        date,
-        restaurants.sort_by { |restaurant| restaurant.open_on(date) ? restaurant.name : "z-#{restaurant.name}" }
-      ]
-    }
+    @restaurants = Restaurant.where(location: @current_location)
+                             .to_a
+                             .sort_by { |restaurant| restaurant.open_on(@date) ? restaurant.name : "z-#{restaurant.name}" }
 
     if turbo_frame_request?
       render partial: "restaurants_list"

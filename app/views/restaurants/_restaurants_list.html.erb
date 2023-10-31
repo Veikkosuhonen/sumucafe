@@ -17,9 +17,9 @@
     <% end %>
   </section>
 
-  <% @restaurants_by_day.each do |day, restaurants| %>
+  <% @restaurants.each do |restaurants| %>
     <section class="py-4 md:w-[35rem] lg:w-[45rem]">
-      <%= render restaurants, day: day %>
+      <%= render restaurants, day: @date %>
     </section>
   <% end %>
 <% end %>
