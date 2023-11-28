@@ -6,12 +6,13 @@ Yet another Better Unicafe Menu. This time with a focus on social features, more
 
 - [x] Today's menu everywhere!
 - [ ] Browse the entire menu of past and future weeks.
+- [ ] See quickly the ingredients (so you know whether you ate hän or not)
 - [ ] See menu changes: was some meal canceled or added and when?
 - [x] Login with email and password to...
 - [ ] Rate meals! Based on your ratings, get recommendation for the best canteen of each campus today.
 - [ ] Opt in to share your ratings. See global ratings.
 - [ ] Add pictures of restaurants and meals.
-- [ ] Make friends! Get a canteen recommendation based on yours and your friends ratings, so you know more have to argue.
+- [ ] Make friends! Get a canteen recommendation based on yours and your friends ratings, so you no more have to argue.
 - [ ] Rate restaurants, and have it affect the overall recommendation.
 - [ ] Meal changes! Unicafe may change the recipe of some dish, have it show up in history.
 - [ ] Slack (and Discord and Telegram uhhh...) integration! Get alerts for...
