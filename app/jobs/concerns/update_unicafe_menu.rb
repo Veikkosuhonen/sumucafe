@@ -2,8 +2,8 @@
 
 class UpdateUnicafeMenu
   def self.update_with(json_data)
-    # Set all menu items to canceled
-    MenuItem.update_all(is_canceled: true)
+    # Set all menu items in the future to be canceled
+    MenuItem.where("menu_date >= ?", Date.today).update_all(is_canceled: true)
 
     json_data.each { |restaurant_data|
       location_datas = restaurant_data["location"]
@@ -54,8 +54,32 @@ class UpdateUnicafeMenu
           else
             menu_item.update(is_canceled: false)
           end
+
+          # Update ingredients
+          update_ingredients(meal, menu_item_data["ingredients"])
         }
       }
     }
   end
+end
+
+def update_ingredients(meal, ingredients_string)
+  # Split at commas and parentheses
+  ingredients_strings = ingredients_string.split(/[,(]/)
+  # Remove whitespace, make lowercase, and remove empty strings
+  ingredients_strings = ingredients_strings
+                          .map { |ingredient_string| ingredient_string.strip.lowercase }
+                          .filter { |ingredient_string| ingredient_string.length > 0 }
+  # Update or create ingredients
+  ingredients_strings.each { |ingredient_string|
+    ingredient = Ingredient.find_by(name: ingredient_string)
+    if ingredient.nil?
+      ingredient = Ingredient.create(name: ingredient_string)
+    end
+    # Create association between meal and ingredient if it doesn't exist
+    meal_ingredient = MealIngredient.find_by(meal: meal, ingredient: ingredient)
+    if meal_ingredient.nil?
+      MealIngredient.create(meal: meal, ingredient: ingredient)
+    end
+  }
 end
