@@ -68,7 +68,7 @@ def update_ingredients(meal, ingredients_string)
   ingredients_strings = ingredients_string.split(/[,(]/)
   # Remove whitespace, make lowercase, and remove empty strings
   ingredients_strings = ingredients_strings
-                          .map { |ingredient_string| ingredient_string.strip.lowercase }
+                          .map { |ingredient_string| ingredient_string.strip.downcase }
                           .filter { |ingredient_string| ingredient_string.length > 0 }
 
   # Update or create ingredients

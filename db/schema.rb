@@ -10,12 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_22_210304) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_30_173558) do
+  create_table "ingredients", force: :cascade do |t|
+    t.string "name"
+    t.json "properties"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "locations", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "priority", default: 0
+  end
+
+  create_table "meal_ingredients", force: :cascade do |t|
+    t.integer "meal_id", null: false
+    t.integer "ingredient_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "removed_at"
+    t.index ["ingredient_id"], name: "index_meal_ingredients_on_ingredient_id"
+    t.index ["meal_id"], name: "index_meal_ingredients_on_meal_id"
   end
 
   create_table "meal_types", force: :cascade do |t|
@@ -69,4 +86,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_22_210304) do
     t.datetime "password_reset_sent_at"
   end
 
+  add_foreign_key "meal_ingredients", "ingredients"
+  add_foreign_key "meal_ingredients", "meals"
 end
