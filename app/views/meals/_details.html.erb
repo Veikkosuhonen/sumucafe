@@ -1,5 +1,11 @@
 <%= turbo_frame_tag "meal_details" do %>
   <section class="mb-8 p-4">
     <h1 class="text-stone-200 text-xl"><%= @meal.name %></h1>
+    <details class="text-sm text-stone-300 py-2">
+      <summary class="text-stone-200 cursor-pointer hover:text-stone-50">Ingredients</summary>
+      <% @meal.ingredients.each do |ingredient| %>
+        <p><%= ingredient.name %></p>
+      <% end %>
+    </details>
   </section>
 <% end %>
