@@ -82,6 +82,9 @@ def update_ingredients(meal, ingredients_string)
     meal_ingredient = MealIngredient.find_by(meal: meal, ingredient: ingredient)
     if meal_ingredient.nil?
       MealIngredient.create(meal: meal, ingredient: ingredient)
+    else
+      # Un-remove ingredient if it was removed
+      meal_ingredient.update(removed_at: nil)
     end
     new_meal_ingredients.push(meal_ingredient)
   }
