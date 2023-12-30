@@ -70,7 +70,9 @@ def update_ingredients(meal, ingredients_string)
   ingredients_strings = ingredients_strings
                           .map { |ingredient_string| ingredient_string.strip.lowercase }
                           .filter { |ingredient_string| ingredient_string.length > 0 }
+
   # Update or create ingredients
+  new_meal_ingredients = []
   ingredients_strings.each { |ingredient_string|
     ingredient = Ingredient.find_by(name: ingredient_string)
     if ingredient.nil?
@@ -80,6 +82,14 @@ def update_ingredients(meal, ingredients_string)
     meal_ingredient = MealIngredient.find_by(meal: meal, ingredient: ingredient)
     if meal_ingredient.nil?
       MealIngredient.create(meal: meal, ingredient: ingredient)
+    end
+    new_meal_ingredients.push(meal_ingredient)
+  }
+
+  # Remove old ingredients
+  meal.meal_ingredients.each { |meal_ingredient|
+    unless new_meal_ingredients.include?(meal_ingredient)
+      meal_ingredient.update(removed_at: DateTime.now)
     end
   }
 end
