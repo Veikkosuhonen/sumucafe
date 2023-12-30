@@ -64,12 +64,12 @@ class UpdateUnicafeMenu
 end
 
 def update_ingredients(meal, ingredients_string)
-  # Split at commas and parentheses
-  ingredients_strings = ingredients_string.split(/[,(]/)
-  # Remove whitespace, make lowercase, and remove empty strings
+  # Split at periods, commas and parentheses etc. And at " - "
+  ingredients_strings = ingredients_string.split(/[.,;:()\[\]|\n]|(\s-\s)/)
+  # Remove whitespace, make lowercase, and remove short strings
   ingredients_strings = ingredients_strings
                           .map { |ingredient_string| ingredient_string.strip.downcase }
-                          .filter { |ingredient_string| ingredient_string.length > 0 }
+                          .filter { |ingredient_string| ingredient_string.length > 2 }
 
   # Update or create ingredients
   new_meal_ingredients = []

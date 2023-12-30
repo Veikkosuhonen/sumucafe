@@ -1,17 +1,11 @@
 <div id="<%= dom_id ingredient %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Name:</strong>
+  <p class="my-4 flex gap-4">
     <%= ingredient.name %>
   </p>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Properties:</strong>
-    <%= ingredient.properties %>
-  </p>
-
   <% if action_name != "show" %>
-    <%= link_to "Show this ingredient", ingredient, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to 'Edit this ingredient', edit_ingredient_path(ingredient), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
+    <%= link_to "Show this ingredient", ingredient, class: "rounded-lg py-2 px-3 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'Edit this ingredient', edit_ingredient_path(ingredient), class: "rounded-lg py-2 ml-2 px-3 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-2">
   <% end %>
 </div>
