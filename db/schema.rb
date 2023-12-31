@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_30_173558) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_31_124533) do
   create_table "ingredients", force: :cascade do |t|
     t.string "name"
     t.json "properties"
@@ -31,6 +31,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_30_173558) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "removed_at"
+    t.integer "sort", default: 0, null: false
     t.index ["ingredient_id"], name: "index_meal_ingredients_on_ingredient_id"
     t.index ["meal_id"], name: "index_meal_ingredients_on_meal_id"
   end

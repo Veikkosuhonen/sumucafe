@@ -1,10 +1,13 @@
 class IngredientsController < ApplicationController
-  before_action :must_be_admin
+  before_action :must_be_admin, except: [:index, :show]
   before_action :set_ingredient, only: %i[ show edit update destroy ]
 
   # GET /ingredients or /ingredients.json
   def index
-    @ingredients = Ingredient.all
+    @ingredients = Ingredient
+                     .joins(:meal_ingredients)
+                     .group("ingredients.id")
+                     .order("SUM(meal_ingredients.sort)")
   end
 
   # GET /ingredients/1 or /ingredients/1.json

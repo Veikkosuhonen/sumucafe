@@ -73,7 +73,7 @@ def update_ingredients(meal, ingredients_string)
 
   # Update or create ingredients
   new_meal_ingredients = []
-  ingredients_strings.each { |ingredient_string|
+  ingredients_strings.each_with_index { |ingredient_string, idx|
     ingredient = Ingredient.find_by(name: ingredient_string)
     if ingredient.nil?
       ingredient = Ingredient.create(name: ingredient_string)
@@ -81,10 +81,10 @@ def update_ingredients(meal, ingredients_string)
     # Create association between meal and ingredient if it doesn't exist
     meal_ingredient = MealIngredient.find_by(meal: meal, ingredient: ingredient)
     if meal_ingredient.nil?
-      MealIngredient.create(meal: meal, ingredient: ingredient)
+      MealIngredient.create(meal: meal, ingredient: ingredient, sort: idx)
     else
       # Un-remove ingredient if it was removed
-      meal_ingredient.update(removed_at: nil)
+      meal_ingredient.update(removed_at: nil, sort: idx)
     end
     new_meal_ingredients.push(meal_ingredient)
   }

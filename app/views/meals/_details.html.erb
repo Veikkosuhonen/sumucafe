@@ -3,9 +3,11 @@
     <h1 class="text-stone-200 text-xl"><%= @meal.name %></h1>
     <details class="text-sm text-stone-300 py-2">
       <summary class="text-stone-200 cursor-pointer hover:text-stone-50">Ingredients</summary>
-      <% @meal.ingredients.each do |ingredient| %>
-        <p><%= ingredient.name %></p>
-      <% end %>
+      <div class="mx-4">
+        <% @meal.meal_ingredients.sort_by(&:sort).each do |meal_ingredient| %>
+          <p><%= meal_ingredient.ingredient.name %></p>
+        <% end %>
+      </div>
     </details>
   </section>
 <% end %>

@@ -9,7 +9,7 @@
   </section>
 
   <section class="flex flex-grow overflow-x-auto max-w-[95vw] md:max-w-[70vw] flex-nowrap items-center gap-2 p-2 rounded-xl bg-teal-700 mb-8">
-    <% (Date.today..(Date.today + 7.days)).each do |date| %>
+    <% ((@date - 3.days)..(@date + 3.days)).each do |date| %>
       <%= link_to date == Date.today ? "Today" : date.strftime("%a, %b %d"), "?date=#{date}&location_id=#{@current_location.id}",
                   class: "p-2 bg-teal-800 rounded-lg text-stone-200 hover:text-stone-50 whitespace-nowrap",
                   style: "#{date == @date ? "" : "background-color: transparent"}"
