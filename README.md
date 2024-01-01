@@ -5,8 +5,8 @@ Yet another Better Unicafe Menu. This time with a focus on social features, more
 ## Features
 
 - [x] Today's menu everywhere!
-- [ ] Browse the entire menu of past and future weeks.
-- [ ] See quickly the ingredients (so you know whether you ate hän or not)
+- [x] Browse the entire menu of past and future weeks.
+- [x] See quickly the ingredients (so you know whether you ate hän or not)
 - [ ] See menu changes: was some meal canceled or added and when?
 - [x] Login with email and password to...
 - [ ] Rate meals! Based on your ratings, get recommendation for the best canteen of each campus today.
