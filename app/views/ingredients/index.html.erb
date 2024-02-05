@@ -13,6 +13,15 @@
         <tr>
           <td><%= ingredient.name %></td>
           <td>Neutral</td>
+          <% if current_user.is_admin %>
+            <td>
+              <%= form_for(ingredient) do |f| %>
+                <%= f.hidden_field :id %>
+                <%=  %>
+                <%= f.button("#{ingredient.hidden ? "Unhide" : "Hide"}", value: !ingredient.hidden, class: "btn btn-danger") %>
+              <% end %>
+            </td>
+          <% end %>
         </tr>
      <% end %>
     </tbody>
